@@ -1,0 +1,111 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h3 class="mb-0"><i class="fa-solid fa-warehouse"></i> Depo Ekle</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="warehouseForm" (ngSubmit)="addWarehouse()">
+            <div class="mb-3">
+              <label class="form-label">Depo Adı</label>
+              <input formControlName="name" class="form-control" placeholder="Depo Adı" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Kapasite</label>
+              <input formControlName="capacity" type="number" class="form-control" placeholder="Kapasite" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Adres</label>
+              <input formControlName="address" class="form-control" placeholder="Adres" />
+            </div>
+            <button type="submit" class="btn btn-success w-100">
+              <i class="fa-solid fa-plus-circle"></i> Ekle
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h3 class="mb-0"><i class="fa-solid fa-list"></i> Mevcut Depolar</h3>
+        </div>
+        <div class="card-body">
+          <ul class="list-group">
+            <li *ngFor="let w of warehouses" class="list-group-item d-flex justify-content-between align-items-start">
+              <div class="ms-2 me-auto">
+                <div class="fw-bold">id: {{ w.id }}</div>
+                <div class="fw-bold">{{ w.name }}</div>
+                Kapasite: {{ w.capacity }} - Adres: {{ w.address }}
+              </div>
+              <div class="d-flex gap-2">
+                <button (click)="selectWarehouse(w)" class="btn btn-outline-primary btn-sm">
+                  <i class="fa-solid fa-edit"></i> Güncelle
+                </button>
+                <button (click)="deleteWarehouse(w.id)" class="btn btn-outline-danger btn-sm">
+                  <i class="fa-solid fa-trash"></i> Sil
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h3 class="mb-0"><i class="fa-solid fa-edit"></i> Depo Güncelle</h3>
+        </div>
+        <div class="card-body">
+          <form *ngIf="selectedWarehouse">
+            <div class="mb-3">
+              <label class="form-label">Ad</label>
+              <input [(ngModel)]="selectedWarehouse.name" class="form-control" placeholder="Depo Adı" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Kapasite</label>
+              <input [(ngModel)]="selectedWarehouse.capacity" type="number" class="form-control" placeholder="Kapasite" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Adres</label>
+              <input [(ngModel)]="selectedWarehouse.address" class="form-control" placeholder="Adres" />
+            </div>
+            <button (click)="updateWarehouse()" class="btn btn-warning w-100">
+              <i class="fa-solid fa-save"></i> Kaydet
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h3 class="mb-0"><i class="fa-solid fa-boxes"></i> Depoya Ait Kargoları Göster</h3>
+        </div>
+        <div class="card-body">
+          <div class="input-group mb-3">
+            <input [(ngModel)]="warehouseIdForShipments" class="form-control" placeholder="Depo ID girin" />
+            <button (click)="getShipmentsForWarehouse()" class="btn btn-primary">
+              <i class="fa-solid fa-truck"></i> Kargoları Getir
+            </button>
+          </div>
+
+          <ul class="list-group" *ngIf="relatedShipments.length > 0">
+            <li *ngFor="let s of relatedShipments" class="list-group-item d-flex justify-content-between align-items-start">
+              <div class="ms-2 me-auto">
+                <div class="fw-bold">{{ s.trackingNumber }}</div>
+                {{ s.receiverName }} - {{ s.shipmentType }}
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

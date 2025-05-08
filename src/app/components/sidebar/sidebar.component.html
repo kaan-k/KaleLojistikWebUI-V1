@@ -1,0 +1,81 @@
+
+<nav class="hk-nav">
+    <div class="nicescroll-bar">
+        <div class="navbar-nav-wrap">
+            
+            <hr class="nav-separator" class="nav-link-text"> 
+           
+            <ul class="navbar-nav flex-column">
+                <li  class="nav-item"> 
+                    <li  class="nav-item"  >
+                        <a class="nav-link" [routerLink]="['/shipments']">
+                            <span class="feather-icon"><i class="fa-solid fa-code-branch icon-spacing"></i></span>
+                            <span class="nav-link-text">Kargolar</span>
+                        </a>
+                    </li> 
+                    <li  class="nav-item"  >
+                        <a class="nav-link" [routerLink]="['/senders']">
+                            <span class="feather-icon"><i class="fa-solid fa-code-branch icon-spacing"></i></span>
+                            <span class="nav-link-text">Göndericiler</span>
+                        </a>
+                    </li> 
+                    <li  class="nav-item"  >
+                        <a class="nav-link" [routerLink]="['/complaints']">
+                            <span class="feather-icon"><i class="fa-solid fa-code-branch icon-spacing"></i></span>
+                            <span class="nav-link-text">Şikayetler</span>
+                        </a>
+                    </li> 
+                    <li  class="nav-item"  >
+                        <a class="nav-link" [routerLink]="['/warehouses']">
+                            <span class="feather-icon"><i class="fa-solid fa-code-branch icon-spacing"></i></span>
+                            <span class="nav-link-text">Depolar</span>
+                        </a>
+                    </li> 
+                    <li  class="nav-item"  >
+                        <a class="nav-link" [routerLink]="['/ameles']">
+                            <span class="feather-icon"><i class="fa-solid fa-code-branch icon-spacing"></i></span>
+                            <span class="nav-link-text">Ameleler</span>
+                        </a>
+                    </li> 
+                    
+            </ul>
+
+            
+        </div>
+    </div>
+
+</nav>
+
+
+
+
+  
+
+  <div class="offcanvas offcanvas-start canvas-style" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header" >
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    
+    <div class="offcanvas-body">
+        <a class="navbar-brand font-weight-700"  [routerLink]="['/']">
+            <div class="navbar-logo">
+                <img src="/assets/img/logo-White.png" alt="user" class="avatar-img ">
+            </div>
+        </a>
+
+       
+        
+        <hr class="nav-separator" class="nav-link-text"> 
+       
+        <ul class="navbar-nav flex-column">
+            <li  class="nav-item"> 
+                <li  class="nav-item"  >
+                    <a class="nav-link" [routerLink]="['/shipments']">
+                        <span class="feather-icon"><i class="fa-solid fa-code-branch icon-spacing"></i></span>
+                        <span class="nav-link-text">Kargolar</span>
+                    </a>
+                </li> 
+                
+        </ul>
+    </div>
+  </div>

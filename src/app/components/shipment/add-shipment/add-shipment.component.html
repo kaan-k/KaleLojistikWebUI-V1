@@ -1,0 +1,86 @@
+<div class="modal fade" id="addShipmentModal" tabindex="-1" aria-labelledby="addShipmentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-6" id="addShipmentModalLabel">
+            <i class="fa-solid fa-truck"></i> Yeni Kargo Ekle
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-lg-6 mb-3">
+                  <label class="form-label">
+                    <input type="checkbox" [(ngModel)]="yeniGondericiEkle" name="yeniGondericiEkle" />
+                    Yeni Gönderici Ekle
+                  </label>
+                </div>
+    
+                <!-- Yeni Gönderici Formu -->
+                <div *ngIf="yeniGondericiEkle" class="card p-3 mb-3">
+                  <h4>Gönderici Bilgileri</h4>
+                  <form [formGroup]="gondericiForm">
+                    <input class="form-control mb-2" formControlName="name" placeholder="Adı" />
+                    <input class="form-control mb-2" formControlName="phone" placeholder="Telefon" />
+                    <input class="form-control mb-2" formControlName="email" placeholder="Email" />
+                    <input class="form-control mb-2" formControlName="adress" placeholder="Adres" />
+                  </form>
+                </div>
+    
+                <!-- Mevcut Gönderici -->
+                <div *ngIf="!yeniGondericiEkle" class="mb-3">
+                  <label class="form-label">Gönderici Seç:</label>
+                  <select class="form-select" [(ngModel)]="selectedSenderId" name="senderId">
+                    <option *ngFor="let sender of gondericiler" [value]="sender.id">
+                      {{ sender.name }} - {{ sender.phone }}
+                    </option>
+                  </select>
+                </div>
+          <form [formGroup]="shipmentForm">
+           
+            <div class="row">
+              <div class="col-lg-6 mb-3">
+                <label class="form-label"><i class="fa-solid fa-user"></i> Alıcı Adı</label>
+                <input type="text" class="form-control" formControlName="receiverName" placeholder="Alıcı Adı">
+              </div>
+              <div class="col-lg-6 mb-3">
+                <label class="form-label"><i class="fa-solid fa-phone"></i> Alıcı Telefon</label>
+                <input type="text" class="form-control" formControlName="receiverPhone" placeholder="Alıcı Telefon">
+              </div>
+              <div class="col-lg-6 mb-3">
+                <label class="form-label"><i class="fa-solid fa-envelope"></i> Alıcı Email</label>
+                <input type="email" class="form-control" formControlName="receiverEmail" placeholder="Alıcı Email">
+              </div>
+              <div class="col-lg-6 mb-3">
+                <label class="form-label"><i class="fa-solid fa-weight-hanging"></i> Ağırlık (kg)</label>
+                <input type="number" class="form-control" formControlName="weight" placeholder="Ağırlık (kg)">
+              </div>
+              <div class="col-lg-6 mb-3">
+                <label class="form-label"><i class="fa-solid fa-box"></i> Kargo Türü</label>
+                <select class="form-select" formControlName="shipmentType">
+                  <option value="Normal">Normal</option>
+                  <option value="Express">Express</option>
+                  <option value="Rapid">Rapid</option>
+                </select>
+              </div>
+              <div class="col-lg-6 mb-3">
+                <label class="form-label"><i class="fa-solid fa-map-marker-alt"></i> Teslimat Adresi</label>
+                <input type="text" class="form-control" formControlName="deliveryAddress" placeholder="Teslimat Adresi">
+              </div>
+              <div class="col-lg-6 mb-3">
+                <label class="form-label"><i class="fa-solid fa-warehouse"></i> Depo Seçimi</label>
+                <select class="form-select" formControlName="warehouseId">
+                  <option *ngFor="let w of warehouseList" [value]="w.id">{{ w.name }}</option>
+                </select>
+              </div> 
+            </div>
+          </form>
+          <div class="btn-location mt-5 text-end">
+            <button class="btn btn-primary" (click)="addShipment()" data-bs-dismiss="modal">
+              <i class="fa-solid fa-paper-plane"></i> Kargo Oluştur
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

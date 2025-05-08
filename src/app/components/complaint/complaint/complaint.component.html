@@ -1,0 +1,126 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h3 class="mb-0"><i class="fa-solid fa-search"></i> Şikayet Sorgulama (ID ile)</h3>
+        </div>
+        <div class="card-body">
+          <div class="input-group mb-3">
+            <input #idInput type="text" class="form-control" placeholder="Şikayet ID">
+            <button class="btn btn-primary" (click)="getComplaintById(idInput.value)">
+              <i class="fa-solid fa-search"></i> Sorgula
+            </button>
+          </div>
+
+          <div *ngIf="selectedComplaint" class="card p-3 shadow-sm">
+            <h4>Seçilen Şikayet</h4>
+            <p><strong>ID:</strong> {{ selectedComplaint.id }}</p>
+            <p><strong>Mesaj:</strong> {{ selectedComplaint.complaintMessageContent }}</p>
+            <p><strong>Durum:</strong> {{ selectedComplaint.status }}</p>
+
+            <label for="response">Yanıt Yaz:</label>
+            <textarea id="response" [(ngModel)]="responseText" class="form-control mb-2" rows="3" placeholder="Yanıtınızı buraya yazın"></textarea>
+            <button class="btn btn-success" (click)="sendResponse()">
+              <i class="fa-solid fa-paper-plane"></i> Yanıtı Gönder
+            </button>
+
+            <div *ngIf="selectedComplaint.response" class="alert alert-info mt-3">
+              <strong>Gönderilmiş Yanıt:</strong> {{ selectedComplaint.response }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h3 class="mb-0"><i class="fa-solid fa-list"></i> Şikayet Listesi</h3>
+        </div>
+        <div class="card-body">
+          <ul class="list-group">
+            <li *ngFor="let c of complaints" class="list-group-item d-flex justify-content-between align-items-start">
+              <div class="ms-2 me-auto">
+                <div class="fw-bold">{{ c.id }}</div>
+                {{ c.complaintMessageContent }}
+              </div>
+              <div class="d-flex gap-2">
+                <button (click)="getStatusOnly(c.id)" class="btn btn-outline-primary btn-sm w-100">
+                  <i class="fa-solid fa-eye"></i> Durumunu Göster
+                </button>
+                <button (click)="deleteComplaint(c.id)" class="btn btn-outline-danger btn-sm w-100">
+                  <i class="fa-solid fa-trash"></i> Sil
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h3 class="mb-0"><i class="fa-solid fa-plus-circle"></i> Yeni Şikayet Ekle</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="complaintForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="type" class="form-label">Şikayet Türü:</label>
+              <input id="type" formControlName="type" class="form-control" />
+            </div>
+            <div class="mb-3">
+              <label for="shipmentId" class="form-label">Kargo ID:</label>
+              <input id="shipmentId" formControlName="shipmentId" class="form-control" />
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label">Mesaj:</label>
+              <textarea id="message" formControlName="complaintMessageContent" class="form-control"></textarea>
+            </div>
+            <button type="submit" [disabled]="!complaintForm.valid" class="btn btn-success">
+              <i class="fa-solid fa-paper-plane"></i> Gönder
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header">
+          <h3 class="mb-0"><i class="fa-solid fa-edit"></i> Şikayet Güncelle</h3>
+        </div>
+        <div class="card-body">
+          <form *ngIf="selectedComplaint">
+            <div class="mb-3">
+              <label for="type" class="form-label">Şikayet Türü:</label>
+              <input id="type" [(ngModel)]="selectedComplaint.type" class="form-control" />
+            </div>
+            <div class="mb-3">
+              <label for="shipmentId" class="form-label">Kargo ID:</label>
+              <input id="shipmentId" [(ngModel)]="selectedComplaint.shipmentId" class="form-control" />
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label">Mesaj:</label>
+              <textarea id="message" [(ngModel)]="selectedComplaint.complaintMessageContent" class="form-control" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="status" class="form-label">Durum:</label>
+              <input id="status" [(ngModel)]="selectedComplaint.status" class="form-control" />
+            </div>
+            <div class="mb-3">
+              <label for="response" class="form-label">Yanıt:</label>
+              <textarea id="response" [(ngModel)]="selectedComplaint.response" class="form-control" rows="2"></textarea>
+            </div>
+            <button (click)="updateSelectedComplaint()" class="btn btn-warning">
+              <i class="fa-solid fa-save"></i> Şikayeti Güncelle
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
